@@ -35,9 +35,9 @@ Aepp follows a **clean MVVM architecture** with **GetX** for both state manageme
 ```txt
 lib/
 ├── bindings/
-| ├── about_bindings.dart
-| ├── home_bindings.dart
-| └── product_list_bindings.dart
+│ ├── about_bindings.dart
+│ ├── home_bindings.dart
+│ └── product_list_bindings.dart
 ├── model/
 │ └── product_model.dart
 ├── repositories/
