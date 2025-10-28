@@ -34,20 +34,28 @@ Aepp follows a **clean MVVM architecture** with **GetX** for both state manageme
 
 ```txt
 lib/
-├── data/
-│ ├── models/
-│ │ └── product_model.dart
-│ └── repositories/
+|── bindings/
+| ├── about_bindings.dart
+| ├── home_bindings.dart
+| └── product_list_bindings.dart
+├── model/
+│ └── product_model.dart
+├── repositories/
 │ └── product_repository.dart
-├── modules/
-│ ├── home/
-│ │ ├── home_binding.dart
-│ │ ├── home_controller.dart ← ViewModel (business logic)
-│ │ └── home_view.dart ← View (UI)
-│ ├── category/
-│ └── product_detail/
 ├── routes/
-│ └── app_pages.dart
+│ ├── app_pages.dart
+│ └── app_utes.dart
+├── views/
+│ ├── about.dart
+│ ├── home.dart
+│ └── product_list.dart
+├── viewmodel/
+│ ├── about_viewmodel.dart
+│ ├── home_viewmodel.dart
+│ └── product_list_viewmodel.dart
+├── widgets/
+│ ├── category_card.dart
+│ └── product_card.dart
 └── main.dart ← Theme setup & root routing
 ```
 
