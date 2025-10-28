@@ -32,6 +32,7 @@ This project is ideal as both a **technical showcase** of Flutter architecture a
 
 Aepp follows a **clean MVVM architecture** with **GetX** for both state management and routing.
 
+```txt
 lib/
 ├── data/
 │ ├── models/
@@ -48,7 +49,7 @@ lib/
 ├── routes/
 │ └── app_pages.dart
 └── main.dart ← Theme setup & root routing
-
+```
 
 **Layered responsibilities:**
 - **Model:** Defines data structures & handles API integration.
