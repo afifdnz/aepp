@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:shop/model/product_model.dart';
+import 'package:shop/models/product_model.dart';
 import 'package:shop/repositories/product_repository.dart';
 
 class ProductListViewmodel extends GetxController {

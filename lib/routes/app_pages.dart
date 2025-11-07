@@ -1,4 +1,5 @@
 import 'package:shop/bindings/about_binding.dart';
+import 'package:shop/bindings/cart_binding.dart';
 import 'package:shop/bindings/product_list_binding.dart';
 
 import 'package:shop/view/product_list.dart';
@@ -9,6 +10,7 @@ import '../view/home.dart';
 import '../viewmodel/about_viewmodel.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../bindings/home_binding.dart';
+import '../view/cart.dart';
 
 class AppPages {
   static const INITIAL = Routes.HOME;
@@ -27,6 +29,11 @@ class AppPages {
       name: Routes.PRODUCT_LIST,
       page: () => const ProductList(),
       binding: ProductListBinding(),
+    ),
+    GetPage(
+      name: Routes.CART,
+      page: () => const Cart(),
+      binding: CartBinding(),
     ),
   ];
 }

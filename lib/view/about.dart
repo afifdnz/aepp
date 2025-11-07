@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
-import 'package:shop/model/product_model.dart';
+import 'package:shop/models/product_model.dart';
 import 'package:shop/viewmodel/about_viewmodel.dart';
 import 'package:shop/widgets/product_card.dart';
 

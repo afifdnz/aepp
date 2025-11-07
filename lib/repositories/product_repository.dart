@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../model/product_model.dart';
+import '../models/product_model.dart';
 
 class ProductRepository {
   final String _baseUrl = "http://dummyjson.com/products/category/tablets";

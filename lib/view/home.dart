@@ -69,7 +69,9 @@ class Home extends GetView<HomeViewmodel> {
           ],
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(Routes.CART);
+          },
           icon: Icon(
             Icons.shopping_cart_outlined,
             color: Colors.grey[800],
