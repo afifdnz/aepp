@@ -7,8 +7,6 @@ class CartBinding extends Bindings {
   void dependencies() {
     // TODO: implement dependencies
     Get.lazyPut<CartRepository>(() => CartRepository());
-    Get.lazyPut<CartViewModel>(
-      () => CartViewModel(repository: Get.find<CartRepository>()),
-    );
+    Get.lazyPut<CartViewModel>(() => CartViewModel());
   }
 }

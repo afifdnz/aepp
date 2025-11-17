@@ -12,9 +12,9 @@ class Cart extends GetView<CartViewModel> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        // if (controller.isLoading.value) {
+        //   return const Center(child: CircularProgressIndicator());
+        // }
         if (controller.cartItems.isEmpty) {
           return Center(
             child: Column(
@@ -154,7 +154,7 @@ class Cart extends GetView<CartViewModel> {
                   children: [
                     _quantityButton(
                       icon: Icons.remove,
-                      onTap: () => controller.decrementQuantity(index),
+                      onTap: () => controller.decrementQuantity(item),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -165,7 +165,7 @@ class Cart extends GetView<CartViewModel> {
                     ),
                     _quantityButton(
                       icon: Icons.add,
-                      onTap: () => controller.incrementQuantity(index),
+                      onTap: () => controller.incrementQuantity(item),
                     ),
                   ],
                 ),
@@ -175,7 +175,7 @@ class Cart extends GetView<CartViewModel> {
           Column(
             children: [
               IconButton(
-                onPressed: () => controller.removeCartItem(index),
+                onPressed: () => controller.removeCartItem(item),
                 icon: const Icon(Icons.close, color: Colors.grey),
                 iconSize: 20,
               ),
@@ -270,15 +270,17 @@ class Cart extends GetView<CartViewModel> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                Obx(
-                  () => Text(
-                    '\$${controller.totalAmount.value.toStringAsFixed(2)}',
-                    style: Get.textTheme.headlineSmall?.copyWith(
+                Obx(() {
+                  final _ = controller.cartItems.length;
+
+                  return Text(
+                    '\$${controller.totalAmount.toStringAsFixed(2)}',
+                    style: Get.textTheme.headlineMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
             const SizedBox(height: 30),

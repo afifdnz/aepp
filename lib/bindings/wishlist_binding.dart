@@ -7,8 +7,6 @@ class WishlistBinding extends Bindings {
   void dependencies() {
     // TODO: implement dependencies
     Get.lazyPut<WishlistRepository>(() => WishlistRepository());
-    Get.lazyPut<WishlistViewModel>(
-      () => WishlistViewModel(repository: Get.find<WishlistRepository>()),
-    );
+    Get.lazyPut<WishlistViewModel>(() => WishlistViewModel());
   }
 }

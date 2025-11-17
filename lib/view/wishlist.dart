@@ -16,9 +16,9 @@ class Wishlist extends GetView<WishlistViewModel> {
           _buildFilterTabs(),
           Expanded(
             child: Obx(() {
-              if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
+              // if (controller.isLoading.value) {
+              //   return const Center(child: CircularProgressIndicator());
+              // }
               if (controller.wishlistItems.isEmpty) {
                 return const Center(child: Text('Your wishlist is empty.'));
               }
@@ -150,28 +150,51 @@ class Wishlist extends GetView<WishlistViewModel> {
               ],
             ),
           ),
-
+          Column(
+            children: [
+              IconButton(
+                onPressed: () => controller.removeFromWishlist(product),
+                icon: const Icon(Icons.close, color: Colors.grey),
+                iconSize: 20,
+              ),
+              IconButton(
+                onPressed: () => controller.addToCart(product),
+                icon: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ],
+          ),
           // Tombol Aksi (Hapus & Tambah ke Keranjang)
-          IconButton(
-            onPressed: () => controller.addToCart(product),
-            icon: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () => controller.removeFromWishlist(product),
-            icon: const Icon(Icons.close, color: Colors.grey),
-            iconSize: 20,
-          ),
+          // IconButton(
+          //   onPressed: () => controller.addToCart(product),
+          //   icon: Container(
+          //     padding: const EdgeInsets.all(5),
+          //     decoration: BoxDecoration(
+          //       color: Colors.black,
+          //       borderRadius: BorderRadius.circular(8),
+          //     ),
+          //     child: const Icon(
+          //       Icons.shopping_cart,
+          //       color: Colors.white,
+          //       size: 20,
+          //     ),
+          //   ),
+          // ),
+          // IconButton(
+          //   onPressed: () => controller.removeFromWishlist(product),
+          //   icon: const Icon(Icons.close, color: Colors.grey),
+          //   iconSize: 20,
+          // ),
         ],
       ),
     );

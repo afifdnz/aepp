@@ -3,8 +3,18 @@ import 'package:get/get.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_pages.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shop/services/auth_service.dart';
 
-void main() {
+import 'package:shop/services/cart_services.dart';
+import 'package:shop/services/wishlist_service.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Get.put(CartService(), permanent: true);
+  Get.put(WishlistService(), permanent: true);
+  Get.put(AuthService(), permanent: true);
+
   runApp(const MyApp());
 }
 
@@ -96,7 +106,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      initialRoute: Routes.HOME,
+      initialRoute: AppPages.INITIAL,
       getPages: AppPages.pages,
       // initialBinding: HomeBinding(),
       // home: Home(),

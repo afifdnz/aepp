@@ -31,7 +31,7 @@ class ProductList extends GetView<ProductListViewmodel> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
+      // bottomNavigationBar: _buildBottomNavBar(),
     );
   }
 

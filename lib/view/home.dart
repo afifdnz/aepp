@@ -47,7 +47,7 @@ class Home extends GetView<HomeViewmodel> {
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
+      // bottomNavigationBar: _buildBottomNavBar(),
     );
   }
 
@@ -205,21 +205,23 @@ class Home extends GetView<HomeViewmodel> {
           ),
         ),
         const SizedBox(height: 15),
-        SizedBox(
-          height: 90,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: controller.categories.length,
-            itemBuilder: (context, index) {
-              var category = controller.categories[index];
-              // Tidak perlu Obx lagi karena 'isSelected' tidak relevan
-              return CategoryCard(
-                icon: category['icon'],
-                name: category['name'],
-                isSelected: false, // Selalu false, karena klik akan navigasi
-                onTap: () => controller.changeCategory(index),
-              );
-            },
+        Center(
+          child: SizedBox(
+            height: 90,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.categories.length,
+              itemBuilder: (context, index) {
+                var category = controller.categories[index];
+                // Tidak perlu Obx lagi karena 'isSelected' tidak relevan
+                return CategoryCard(
+                  icon: category['icon'],
+                  name: category['name'],
+                  isSelected: false, // Selalu false, karena klik akan navigasi
+                  onTap: () => controller.changeCategory(index),
+                );
+              },
+            ),
           ),
         ),
       ],

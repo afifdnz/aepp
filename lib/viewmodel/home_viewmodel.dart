@@ -14,10 +14,10 @@ class HomeViewmodel extends GetxController {
   var productList = <ProductModel>[].obs;
 
   final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.tablet_android_rounded, 'name': 'Tablets'},
+    {'icon': Icons.phone_android_outlined, 'name': 'Smartphones'},
+    {'icon': Icons.headset_outlined, 'name': 'Accessories'},
     {'icon': Icons.laptop_chromebook_outlined, 'name': 'Laptops'},
-    {'icon': Icons.headset_outlined, 'name': 'Headsets'},
-    {'icon': Icons.phone_android_outlined, 'name': 'Phones'},
+    {'icon': Icons.tablet_android_rounded, 'name': 'Tablets'},
   ];
 
   @override
@@ -47,7 +47,18 @@ class HomeViewmodel extends GetxController {
   }
 
   void changeCategory(int index) {
-    final categoryName = categories[index]['name'] as String;
-    Get.toNamed(Routes.PRODUCT_LIST, arguments: {'category': categoryName});
+    var categoryName = categories[index]['name'] as String;
+    if (categories[index]['name'] == 'Accessories') {
+      categoryName = 'mobile-accessories';
+    }
+    Get.toNamed(
+      Routes.PRODUCT_LIST,
+      arguments: {'category': categoryName},
+
+      // --- INI PERBAIKANNYA ---
+      // Beri tahu GetX untuk menggunakan navigator 'nested'
+      // yang "berlabuh" di rute DASHBOARD.
+      // -------------------------
+    );
   }
 }

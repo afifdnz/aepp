@@ -109,9 +109,36 @@ class About extends GetView<AboutViewmodel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            product.name,
-            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  product.name,
+                  style: Get.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  // style: const TextStyle(
+                  //   fontSize: 12,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Obx(() {
+                return IconButton(
+                  onPressed: controller.toggleFavorite,
+                  icon: Icon(
+                    controller.isFavorite.value
+                        ? Icons.favorite
+                        : Icons.favorite_border_outlined,
+                  ),
+                );
+              }),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
@@ -146,15 +173,16 @@ class About extends GetView<AboutViewmodel> {
         height: 55,
         child: FilledButton(
           onPressed: () {
-            Get.snackbar(
-              'Success',
-              '${controller.product.value!.name} added to cart',
-              backgroundColor: Colors.black.withOpacity(0.8),
-              colorText: Colors.white,
-              snackPosition: SnackPosition.TOP,
-              margin: const EdgeInsets.all(15),
-              borderRadius: 10,
-            );
+            controller.addToCart();
+            // Get.snackbar(
+            //   'Success',
+            //   '${controller.product.value!.name} added to cart',
+            //   backgroundColor: Colors.black.withOpacity(0.8),
+            //   colorText: Colors.white,
+            //   snackPosition: SnackPosition.TOP,
+            //   margin: const EdgeInsets.all(15),
+            //   borderRadius: 10,
+            // );
           },
           style: FilledButton.styleFrom(
             backgroundColor: const Color(0xFF222222),

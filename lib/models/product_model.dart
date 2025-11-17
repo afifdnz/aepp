@@ -1,3 +1,6 @@
+import 'package:shop/models/category_model.dart';
+import 'package:shop/models/product_image_model.dart';
+
 class ProductModel {
   final int id;
   final String name;
