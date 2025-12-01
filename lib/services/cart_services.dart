@@ -1,73 +1,122 @@
 // services/cart_service.dart
 import 'package:get/get.dart';
-import 'package:shop/models/cart_item_model.dart'; // Sesuaikan path
-import 'package:shop/models/product_model.dart'; // Sesuaikan path
-import 'package:flutter/material.dart'; // Untuk Snackbar
+import 'package:flutter/material.dart';
+import 'package:shop/models/cart_item_model.dart';
+import 'package:shop/models/product_model.dart';
+import 'package:shop/repositories/cart_repository.dart';
+import 'package:shop/services/auth_service.dart';
 
 class CartService extends GetxService {
-  // Ini adalah "database" memori kita.
-  // Daftar ini akan hidup selamanya.
+  final CartRepository _repository = Get.find<CartRepository>();
+  final AuthService _authService = Get.find<AuthService>();
+
   final cartItems = <CartItemModel>[].obs;
 
-  // --- GETTERS (untuk dibaca oleh ViewModel) ---
+  // Getter untuk total harga
+  double get totalAmount => cartItems.fold(
+    0,
+    (sum, item) => sum + (item.product.price * item.quantity),
+  );
 
-  // Getter reaktif untuk total jumlah
-  // 'fold' adalah cara cepat untuk menjumlahkan list
-  double get totalAmount {
-    return cartItems.fold(0.0, (sum, item) => sum + item.subtotal);
+  @override
+  void onInit() {
+    super.onInit();
+    // Fetch cart saat login berubah atau saat aplikasi mulai
+    ever(_authService.isLoggedIn, (loggedIn) {
+      if (loggedIn) fetchCart();
+    });
   }
 
-  // --- METHODS (untuk dipanggil oleh ViewModel) ---
+  // --- 1. FETCH CART ---
+  void fetchCart() async {
+    if (!_authService.isLoggedIn.value) return;
 
-  void addToCart(ProductModel product) {
-    // Cek apakah item sudah ada di keranjang
-    final index = cartItems.indexWhere((item) => item.product.id == product.id);
+    try {
+      final userId = _authService.currentUser.value!.id;
+      final items = await _repository.getCart(userId);
+      cartItems.assignAll(items);
+    } catch (e) {
+      print("Error fetching cart: $e");
+    }
+  }
 
-    if (index != -1) {
-      // Jika sudah ada, tambahkan quantity-nya
-      cartItems[index].incrementQuantity();
-    } else {
-      // Jika belum ada, tambahkan item baru ke daftar
-      cartItems.add(CartItemModel(product: product, quantity: 1));
+  // --- 2. ADD TO CART ---
+  void addToCart(ProductModel product) async {
+    if (!_authService.isLoggedIn.value) {
+      Get.snackbar('Error', 'Please login first');
+      return;
     }
 
-    // Panggil refresh() untuk memberi tahu Obx bahwa list internal berubah
-    cartItems.refresh();
+    try {
+      final userId = _authService.currentUser.value!.id;
 
-    Get.snackbar(
-      'Added to Cart',
-      '${product.name} added to cart.',
-      backgroundColor: Colors.black.withOpacity(0.8),
-      colorText: Colors.white,
-      snackPosition: SnackPosition.TOP,
-      margin: const EdgeInsets.all(15),
-    );
+      // Cek apakah item sudah ada di list LOKAL?
+      // Jika ya, kita update quantity-nya saja (Optional, tergantung logika bisnis)
+      // Untuk amannya, kita POST saja, lalu fetch ulang.
+
+      await _repository.addToCart(userId, product.id, 1);
+
+      Get.snackbar('Success', 'Added to cart');
+      fetchCart(); // Refresh data dari server agar dapat cart_item_id yang baru
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to add to cart');
+    }
   }
 
-  void incrementQuantity(CartItemModel item) {
-    item.incrementQuantity();
-    cartItems.refresh(); // Update UI
+  // --- 3. UPDATE QUANTITY (INCREMENT) ---
+  void incrementQuantity(CartItemModel item) async {
+    try {
+      final newQty = item.quantity + 1;
+
+      // Optimistic Update (Update UI dulu biar cepat)
+      item.quantity = newQty;
+      cartItems.refresh();
+
+      // Panggil API (Gunakan item.id yaitu cart_item_id)
+      await _repository.updateCartItem(item.id, newQty);
+    } catch (e) {
+      // Revert jika gagal
+      item.quantity = item.quantity - 1;
+      cartItems.refresh();
+      Get.snackbar('Error', 'Failed to update quantity');
+    }
   }
 
-  void decrementQuantity(CartItemModel item) {
+  // --- 4. UPDATE QUANTITY (DECREMENT) ---
+  void decrementQuantity(CartItemModel item) async {
     if (item.quantity > 1) {
-      item.decrementQuantity();
+      try {
+        final newQty = item.quantity - 1;
+
+        // Optimistic Update
+        item.quantity = newQty;
+        cartItems.refresh();
+
+        // Panggil API
+        await _repository.updateCartItem(item.id, newQty);
+      } catch (e) {
+        item.quantity = item.quantity + 1;
+        cartItems.refresh();
+      }
     } else {
-      // Jika kuantitas 1, hapus item
-      removeFromCart(item);
+      // Jika sisa 1 dan dikurang, tanya mau hapus atau tidak?
+      removeCartItem(item);
     }
-    cartItems.refresh(); // Update UI
   }
 
-  void removeFromCart(CartItemModel item) {
-    cartItems.remove(item);
-    Get.snackbar(
-      'Removed',
-      '${item.product.name} removed from cart.',
-      backgroundColor: Colors.black.withOpacity(0.8),
-      colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM,
-      margin: const EdgeInsets.all(15),
-    );
+  // --- 5. DELETE ITEM ---
+  void removeCartItem(CartItemModel item) async {
+    try {
+      // Hapus dari list lokal dulu
+      cartItems.remove(item);
+
+      // Panggil API
+      await _repository.deleteCartItem(item.id);
+    } catch (e) {
+      // Kembalikan jika gagal
+      cartItems.add(item);
+      Get.snackbar('Error', 'Failed to remove item');
+    }
   }
 }
+

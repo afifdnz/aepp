@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shop/models/product_model.dart';
+import 'package:shop/models/wishlist_item_model.dart';
 import 'package:shop/repositories/wishlist_repository.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,12 @@ class WishlistViewModel extends GetxController {
   final WishlistService wishlistService = Get.find<WishlistService>();
   final CartService cartService = Get.find<CartService>();
 
-  RxList<ProductModel> get wishlistItems => wishlistService.wishlistItems;
+  List<ProductModel> get wishlistItems =>
+      wishlistService.wishlistItems.map((e) => e.product).toList();
+
+  // RxList<ProductModel> get wishlistItems => wishlistService.wishlistItems;
+  RxList<WishlistItemModel> get rawWishlistItems =>
+      wishlistService.wishlistItems;
 
   void removeFromWishlist(ProductModel product) {
     wishlistService.toggleWishlist(

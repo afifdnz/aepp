@@ -53,7 +53,7 @@ class RegisterViewModel extends GetxController {
 
   void submitRegistration() async {
     if (usernameController.text.isEmpty) {
-      Get.snackbar('Error', 'Username tidak boleh kosong');
+      Get.snackbar('Error', "Username tidak boleh kosong");
       return;
     }
 
@@ -62,15 +62,35 @@ class RegisterViewModel extends GetxController {
       await authService.signUp(
         name: nameController.text,
         email: emailController.text,
-        dob: dobController.text,
+        tanggalLahir: dobController.text,
         password: passwordController.text,
         username: usernameController.text,
       );
     } catch (e) {
-      print(e);
+      Get.snackbar('Registration Failed', e.toString());
     } finally {
       isLoading(false);
     }
+
+    // if (usernameController.text.isEmpty) {
+    //   Get.snackbar('Error', 'Username tidak boleh kosong');
+    //   return;
+    // }
+    //
+    // isLoading(true);
+    // try {
+    //   await authService.signUp(
+    //     name: nameController.text,
+    //     email: emailController.text,
+    //     dob: dobController.text,
+    //     password: passwordController.text,
+    //     username: usernameController.text,
+    //   );
+    // } catch (e) {
+    //   print(e);
+    // } finally {
+    //   isLoading(false);
+    // }
 
     //
     // print("Name: ${nameController.text}");

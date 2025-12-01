@@ -14,10 +14,10 @@ class HomeViewmodel extends GetxController {
   var productList = <ProductModel>[].obs;
 
   final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.phone_android_outlined, 'name': 'Smartphones'},
-    {'icon': Icons.headset_outlined, 'name': 'Accessories'},
-    {'icon': Icons.laptop_chromebook_outlined, 'name': 'Laptops'},
-    {'icon': Icons.tablet_android_rounded, 'name': 'Tablets'},
+    {'id': 1, 'icon': Icons.phone_android_outlined, 'name': 'Smartphones'},
+    {'id': 4, 'icon': Icons.headset_outlined, 'name': 'Accessories'},
+    {'id': 2, 'icon': Icons.laptop_chromebook_outlined, 'name': 'Laptops'},
+    {'id': 3, 'icon': Icons.tablet_android_rounded, 'name': 'Tablets'},
   ];
 
   @override
@@ -47,18 +47,29 @@ class HomeViewmodel extends GetxController {
   }
 
   void changeCategory(int index) {
-    var categoryName = categories[index]['name'] as String;
-    if (categories[index]['name'] == 'Accessories') {
-      categoryName = 'mobile-accessories';
-    }
+    int categoryId = categories[index]['id'] as int;
+    String categoryName = categories[index]['name'] as String;
+
     Get.toNamed(
       Routes.PRODUCT_LIST,
-      arguments: {'category': categoryName},
-
-      // --- INI PERBAIKANNYA ---
-      // Beri tahu GetX untuk menggunakan navigator 'nested'
-      // yang "berlabuh" di rute DASHBOARD.
-      // -------------------------
+      arguments: {'category_id': categoryId, 'category_name': categoryName},
+      // id: 1,
     );
   }
+
+  // void changeCategory(int index) {
+  //   var categoryName = categories[index]['name'] as String;
+  //   if (categories[index]['name'] == 'Accessories') {
+  //     categoryName = 'mobile-accessories';
+  //   }
+  //   Get.toNamed(
+  //     Routes.PRODUCT_LIST,
+  //     arguments: {'category': categoryName},
+  //
+  //     // --- INI PERBAIKANNYA ---
+  //     // Beri tahu GetX untuk menggunakan navigator 'nested'
+  //     // yang "berlabuh" di rute DASHBOARD.
+  //     // -------------------------
+  //   );
+  // }
 }

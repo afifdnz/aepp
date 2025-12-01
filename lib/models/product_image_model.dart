@@ -11,9 +11,9 @@ class ProductImageModel {
 
   factory ProductImageModel.fromJson(Map<String, dynamic> json) {
     return ProductImageModel(
-      id: json['ID'],
-      productId: json['ProductID'],
-      imageUrl: json['ImageURL'],
+      id: json['id'] ?? 0,
+      productId: json['product_id'] ?? 0,
+      imageUrl: json['image_url'] ?? '',
     );
   }
 }

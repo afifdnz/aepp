@@ -253,7 +253,11 @@ class Home extends GetView<HomeViewmodel> {
             product: product,
             onTap: () {
               // Get.to(() => About());
-              Get.toNamed(Routes.ABOUT, arguments: {"id": product.id});
+              Get.toNamed(
+                Routes.ABOUT,
+                arguments: {"id": product.id},
+                id: null,
+              );
             },
           );
         },

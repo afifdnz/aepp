@@ -35,7 +35,7 @@ class AboutViewmodel extends GetxController {
     try {
       isLoading(true);
       errorMessage('');
-      product.value = await repository.getProductsById(id);
+      product.value = await repository.getProductById(id);
 
       if (product.value != null) {
         isFavorite.value = wishlistService.isFavorite(product.value!.id);

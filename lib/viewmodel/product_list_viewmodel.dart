@@ -24,18 +24,22 @@ class ProductListViewmodel extends GetxController {
     // TODO: implement onInit
     super.onInit();
     final Map<String, dynamic>? args = Get.arguments;
-    if (args != null && args.containsKey('category')) {
-      categoryName.value = args['category'];
-      fetchProductByCategory();
+    if (args != null &&
+        args.containsKey('category_id') &&
+        args.containsKey('category_name')) {
+      int categoryId = args['category_id'];
+      categoryName.value = args['category_name'];
+      fetchProductByCategory(categoryId);
     } else {
       isLoading.value = false;
+      Get.snackbar('Error', 'Category ID not found.');
     }
   }
 
-  void fetchProductByCategory() async {
+  void fetchProductByCategory(int category_id) async {
     try {
       isLoading(true);
-      var product = await repository.getProductsByCategory(categoryName.value);
+      var product = await repository.getProductsByCategoryId(category_id);
       productList.assignAll(product);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load product for this category.');

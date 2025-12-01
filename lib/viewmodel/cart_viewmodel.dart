@@ -26,7 +26,8 @@ class CartViewModel extends GetxController {
   }
 
   void removeCartItem(CartItemModel item) {
-    cartService.removeFromCart(item);
+    // cartService.removeFromCart(item);
+    cartService.removeCartItem(item);
   }
 
   void checkout() {

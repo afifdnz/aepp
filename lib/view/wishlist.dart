@@ -28,8 +28,12 @@ class Wishlist extends GetView<WishlistViewModel> {
                   vertical: 10,
                 ),
                 itemCount: controller.wishlistItems.length,
+                // itemBuilder: (context, index) {
+                //   final product = controller.wishlistItems[index];
+                //   return _buildWishlistItemCard(context, product);
+                // },
                 itemBuilder: (context, index) {
-                  final product = controller.wishlistItems[index];
+                  final product = controller.rawWishlistItems[index].product;
                   return _buildWishlistItemCard(context, product);
                 },
               );
