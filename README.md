@@ -44,6 +44,13 @@ If you want to run the server on your own machine (Localhost):
    - **phpMyAdmin** at http://localhost:8081
 3. **Seed Data (Optional)**: Once running, visit http://localhost:8080/seed to populate the database with dummy products.
 
+Data Source & Persistence
+
+   ⚠️ Note on Data Origin:
+   While the initial catalog data (Products, Categories, Images) is seeded from the public DummyJSON API, it is stored and managed in a private    MySQL database.
+
+   Unlike using the public DummyJSON directly (which is read-only), this custom backend allows for full data persistence. This means User          Registration, Cart updates, Wishlist management, and Orders are saved permanently.
+
 ---
 
 ## 🧠 Architecture Overview
