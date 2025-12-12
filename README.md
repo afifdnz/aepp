@@ -19,12 +19,30 @@ This project is ideal as both a **technical showcase** of Flutter architecture a
 ## ✨ Features
 
 - **Modern & Brand-Centric UI** – Minimalistic, product-focused interface with consistent design language.
-- **Dynamic Product Data** – Fetches and displays live data from [DummyJSON REST API](https://dummyjson.com/).
+- **Persistent Backend Data** – Uses a custom Go backend with MySQL to allow real CRUD operations (Register, Login, Cart, Wishlist).
 - **MVVM Architecture** – Clear separation of concerns among Model, View, and ViewModel.
 - **Nested Routing** – Persistent bottom navigation using `GetRouterOutlet`.
 - **Centralized Theme Management** – Unified color scheme, typography, and button styles via `ThemeData`.
 - **Reactive UI** – Automatic state updates powered by `Rx` variables and GetX reactivity.
 - **Add to Cart Feedback** – Instant `Snackbar` feedback for product interactions.
+
+---
+
+## 🔌 Backend & API
+This project connects to a custom **RESTful API** built with **Go (Golang)** and **Docker**.
+
+🚀 How to Run Backend Locally
+If you want to run the server on your own machine (Localhost):
+1. Clone this repository
+2. Run with Docker Compose:
+   ```txt
+   docker-compose up --build
+   ```
+   This will automatically spin up:
+   - **Go API Server** at http://localhost:8080
+   - **MySQL Database** (Pre-configured)
+   - **phpMyAdmin** at http://localhost:8081
+3. **Seed Data (Optional)**: Once running, visit http://localhost:8080/seed to populate the database with dummy products.
 
 ---
 
