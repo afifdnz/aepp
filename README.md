@@ -35,6 +35,7 @@ This project connects to a custom **RESTful API** built with **Go (Golang)** and
 If you want to run the server on your own machine (Localhost):
 1. Clone this repository
 2. Run with Docker Compose:
+   
    ```txt
    docker-compose up --build
    ```
@@ -42,7 +43,7 @@ If you want to run the server on your own machine (Localhost):
    - **Go API Server** at http://localhost:8080
    - **MySQL Database** (Pre-configured)
    - **phpMyAdmin** at http://localhost:8081
-3. **Seed Data (Optional)**: Once running, visit http://localhost:8080/seed to populate the database with dummy products.
+4. **Seed Data (Optional)**: Once running, visit http://localhost:8080/seed to populate the database with dummy products.
 
 **Data Source & Persistence**
 
