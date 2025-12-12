@@ -54,9 +54,26 @@ If you want to run the server on your own machine (Localhost):
 **API Endpoints**
 The application interacts with the following endpoints:
 
-| Feature | Method | Endpoint | Description |
-|:----:|:-------------:|:--------------:|:--------------:|
-| System | ```GET``` | ```/ping``` | Health check. |
+| Feature    | Method | Endpoint                             | Description                          |
+|:----------:|:------:|:-------------------------------------:|:--------------------------------------|
+| System     | `GET`  | `/ping`                               | Health check.                         |
+| Auth       | `POST` | `/api/users/register`                 | Register new user.                    |
+| Auth       | `POST` | `/api/users/login`                    | User login (email & password).        |
+| User       | `GET`  | `/api/users/{id}`                     | Get user profile.                     |
+| User       | `GET`  | `/api/users/{id}/addresses`           | Get user shipping addresses.          |
+| Products   | `GET`  | `/api/products`                       | Fetch all products.                   |
+| Products   | `GET`  | `/api/products/{id}`                  | Fetch single product details.         |
+| Categories | `GET`  | `/api/categories`                     | Fetch product categories.             |
+| Categories | `GET`  | `/api/categories/{id}/products`       | Fetch products by category.           |
+| Wishlist   | `GET`  | `/api/users/{id}/wishlist`            | Get user's wishlist.                  |
+| Wishlist   | `POST` | `/api/wishlist`                       | Add item to wishlist.                 |
+| Wishlist   | `DELETE` | `/api/wishlist/{id}`                | Remove item from wishlist.            |
+| Cart       | `GET`  | `/api/users/{id}/cart`                | Get user's shopping cart.             |
+| Cart       | `POST` | `/api/cart`                           | Add to cart / Update quantity.        |
+| Cart       | `PUT`  | `/api/cart/{id}`                      | Update cart item quantity.            |
+| Cart       | `DELETE` | `/api/cart/{id}`                    | Remove item from cart.                |
+| Order      | `POST` | `/api/orders/checkout`                | Process checkout (Transaction).       |
+
 
 
 
