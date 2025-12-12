@@ -80,8 +80,8 @@ The application interacts with the following endpoints:
 
 The backend is deployed and currently running on **Hugging Face Spaces**. You can test the connectivity or use this Base URL for the Flutter application.
 
-* **Base URL:** `https://<USERNAME-HUGGINGFACE>-shop-api.hf.space`
-* **Status Check:** [Click here to Ping](https://<USERNAME-HUGGINGFACE>-shop-api.hf.space/ping)
+* **Base URL:** `https://aepp-project-mobile-aepp.hf.space`
+* **Status Check:** [Click here to Ping](https://aepp-project-mobile-aepp.hf.space/ping)
 
 > **⚠️ Note:** Since this runs on a free tier instance, the server might "sleep" after periods of inactivity. If the first request is slow or fails, please wait a moment and try again while the container wakes up.
 
