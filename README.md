@@ -53,8 +53,9 @@ If you want to run the server on your own machine (Localhost):
 
 **API Endpoints**
 The application interacts with the following endpoints:
+
 | Feature | Method | Endpoint | Description |
-|:----:|:-------------:|:--------------:|
+|:----:|:-------------:|:--------------:|:--------------:|
 | System | ```GET``` | ```/ping``` | Health check. |
 
 
