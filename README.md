@@ -121,10 +121,11 @@ lib/
 
 - **Framework:** Flutter  
 - **State Management & Routing:** GetX  
-- **HTTP Client:** `http` package  
-- **Typography:** Google Fonts (Inter)  
+- **Backend Language:** Go (Golang)
+- **Database:** MySQL (Local Docker / TiBD Cloud)  
+- **Hosting:** Hungging Face Spaces (Docker)  
 - **Architecture:** MVVM  
-- **API:** [DummyJSON](https://dummyjson.com/)  
+- **Seed:** [DummyJSON](https://dummyjson.com/)  
 
 ---
 
