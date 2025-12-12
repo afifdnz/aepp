@@ -284,17 +284,47 @@ class Cart extends GetView<CartViewModel> {
               ],
             ),
             const SizedBox(height: 30),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+
+            Obx(
+              () => SizedBox(
+                // Bungkus dengan SizedBox agar lebar penuh
+                width: double.infinity,
+                child: FilledButton(
+                  // Disable tombol jika sedang loading atau keranjang kosong
+                  onPressed:
+                      (controller.isCheckingOut.value ||
+                          controller.cartItems.isEmpty)
+                      ? null
+                      : controller.checkout,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                  ),
+                  // Tampilkan Loading Spinner atau Teks
+                  child: controller.isCheckingOut.value
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.black,
+                          ),
+                        )
+                      : const Text('Checkout'),
                 ),
               ),
-              onPressed: controller.checkout,
-              child: const Text('Checkout'),
             ),
+            // FilledButton(
+            //   style: FilledButton.styleFrom(
+            //     backgroundColor: Colors.white,
+            //     foregroundColor: Colors.black,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //   ),
+            //   onPressed: controller.checkout,
+            //   child: const Text('Checkout'),
+            // ),
           ],
         ),
       ),

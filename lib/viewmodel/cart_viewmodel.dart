@@ -6,6 +6,8 @@ import 'package:shop/services/cart_services.dart';
 class CartViewModel extends GetxController {
   final CartService cartService = Get.find<CartService>();
 
+  var isCheckingOut = false.obs;
+
   // 3. Buat 'getter' untuk meneruskan data ke View
 
   // 'cartItems' di View akan langsung membaca dari service
@@ -30,10 +32,21 @@ class CartViewModel extends GetxController {
     cartService.removeCartItem(item);
   }
 
-  void checkout() {
-    // Logika checkout
-    Get.snackbar('Checkout', 'Proceeding to checkout!');
+  void checkout() async {
+    // Ubah status loading jadi true (untuk menampilkan spinner di tombol)
+    isCheckingOut.value = true;
+
+    // Panggil service
+    await cartService.checkout();
+
+    // Kembalikan status loading
+    isCheckingOut.value = false;
   }
+
+  // void checkout() {
+  //   // Logika checkout
+  //   Get.snackbar('Checkout', 'Proceeding to checkout!');
+  // }
 
   // final CartRepository repository;
   // CartViewModel({required this.repository});

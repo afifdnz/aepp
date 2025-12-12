@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:shop/models/product_model.dart'; // Sesuaikan path
 
 class ProductRepository {
-  final String _baseUrl = "http://172.25.16.1:8080/api"; // URL API Anda
+  final String _baseUrl =
+      "https://aepp-project-mobile-aepp.hf.space/api"; // URL API Anda
 
   // FUNGSI 1 (Sudah Aman, tapi pastikan seperti ini)
   Future<List<ProductModel>> getProducts() async {

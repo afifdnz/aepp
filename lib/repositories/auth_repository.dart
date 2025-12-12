@@ -5,7 +5,7 @@ import 'package:shop/models/product_image_model.dart';
 import 'package:shop/models/auth_response_model.dart';
 
 class AuthRepository {
-  final String _baseUrl = "http://172.25.16.1:8080/api";
+  final String _baseUrl = "https://aepp-project-mobile-aepp.hf.space/api";
 
   Future<void> register({
     required String name,

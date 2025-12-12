@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:shop/models/cart_item_model.dart';
 import 'package:shop/models/product_model.dart';
 import 'package:shop/repositories/cart_repository.dart';
+import 'package:shop/repositories/order_repository.dart';
 import 'package:shop/services/auth_service.dart';
 
 class CartService extends GetxService {
   final CartRepository _repository = Get.find<CartRepository>();
+  final OrderRepository _repositoryOrder = Get.find<OrderRepository>();
   final AuthService _authService = Get.find<AuthService>();
 
   final cartItems = <CartItemModel>[].obs;
@@ -118,5 +120,46 @@ class CartService extends GetxService {
       Get.snackbar('Error', 'Failed to remove item');
     }
   }
-}
 
+  Future<void> checkout() async {
+    // Validasi Login
+    if (!_authService.isLoggedIn.value) {
+      Get.snackbar('Error', 'Please login to checkout');
+      return;
+    }
+
+    // Validasi Keranjang Kosong
+    if (cartItems.isEmpty) {
+      Get.snackbar('Error', 'Cart is empty');
+      return;
+    }
+
+    try {
+      final userId = _authService.currentUser.value!.id;
+
+      // 1. Panggil API Checkout
+      await _repositoryOrder.checkout(userId);
+
+      // 2. JIKA SUKSES: BERSIHKAN KERANJANG LOKAL
+      // Karena backend sudah menghapus data di database,
+      // UI kita juga harus dikosongkan.
+      cartItems.clear();
+
+      // 3. Tampilkan Pesan Sukses
+      Get.defaultDialog(
+        title: "Order Success!",
+        middleText: "Your order has been placed successfully.",
+        textConfirm: "OK",
+        confirmTextColor: Colors.white,
+        onConfirm: () {
+          Get.back(); // Tutup dialog
+          // Opsional: Arahkan ke halaman riwayat pesanan
+          // Get.toNamed(Routes.ORDER_HISTORY);
+        },
+      );
+    } catch (e) {
+      Get.snackbar('Error', 'Checkout failed. Please try again.');
+      print(e);
+    }
+  }
+}

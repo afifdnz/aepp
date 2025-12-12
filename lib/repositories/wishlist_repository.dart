@@ -4,7 +4,7 @@ import 'package:shop/models/product_model.dart';
 import 'package:shop/models/wishlist_item_model.dart';
 
 class WishlistRepository {
-  final String _baseUrl = "http://172.25.16.1:8080/api";
+  final String _baseUrl = "https://aepp-project-mobile-aepp.hf.space/api";
   // final List<ProductModel> _dummyProducts = [
   //   // ProductModel(
   //   //   id: 1,

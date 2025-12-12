@@ -22,7 +22,7 @@ class CartRepository {
   //   ];
   // }
 
-  final String _baseUrl = "http://172.25.16.1:8080/api";
+  final String _baseUrl = "https://aepp-project-mobile-aepp.hf.space/api";
 
   Future<List<CartItemModel>> getCart(int userId) async {
     final response = await http.get(Uri.parse('$_baseUrl/users/$userId/cart'));

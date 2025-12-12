@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shop/repositories/auth_repository.dart';
 import 'package:shop/repositories/cart_repository.dart';
 import 'package:shop/repositories/wishlist_repository.dart';
+import 'package:shop/repositories/order_repository.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_pages.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ void main() async {
   Get.put(AuthRepository(), permanent: true);
   Get.put(WishlistRepository(), permanent: true);
 
+  Get.put(OrderRepository(), permanent: true);
   Get.put(AuthService(), permanent: true);
   Get.put(CartService(), permanent: true);
   Get.put(WishlistService(), permanent: true);
